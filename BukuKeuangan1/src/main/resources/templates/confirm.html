@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/SpringBootSample.css}" rel="stylesheet" type="text/css">
+	<title>情報引き継ぎ画面</title>
+</head>
+
+<body>
+	<div id="container">
+		<h1 id="page-hedder">情報引き継ぎ画面</h1>
+		<form th:action="@{/commit}" th:object="${user}" method="post">
+			<h2>普通に処理する</h2>
+			入力画面から引き継いだ情報を普通に表示する。<br>
+			<span th:inline="text">
+				<!--
+					formで受け取った値は表示するには使えるが、inputに指定しない値は次のsubmitには引き継げない。
+				-->
+				個人番号：[[${user.uNo}]]<br>
+				氏名：[[${user.uName}]]<br>
+				誕生日：[[${user.bDate}]]<br>
+				年齢：[[${user.age}]]<br>
+				住所：[[${user.address.region}]][[${user.address.city}]][[${user.address.addressLine[0]}]][[${user.address.addressLine[1]}]][[${user.address.addressLine[2]}]]
+			</span>
+
+			<h2>住所をループ処理</h2>
+			住所1～3をループで処理してみる。
+
+			<h3>HTMLのタグに埋め込んど表示する場合</h3>
+			<th:block th:each="address : ${user.address.addressLine}">
+				<label th:text="${address}" />
+			</th:block>
+
+			<h3>生の値をそのまま出力する場合</h3>
+			<th:block th:each="address : ${user.address.addressLine}">
+				[[${address}]]
+			</th:block>
+			<br>
+
+			<!-- 入力画面に戻るときのためにhiddenでも持たせておく -->
+			<input type="hidden" th:field="*{uNo}" value="${user.uNo}" />
+			<input type="hidden" th:field="*{uName}" value="${user.uName}" />
+			<input type="hidden" th:field="*{bDate}" value="${user.bDate}" />
+			<input type="hidden" th:field="*{age}" value="${user.age}" />
+			<input type="hidden" th:field="*{address.region}" value="${user.address.region}" />
+			<input type="hidden" th:field="*{address.city}" value="${user.address.city}" />
+			<!-- Listの場合は一つで持てる -->
+			<input type="hidden" th:field="*{address.addressLine}" value="${user.address.addressLine}" />
+
+			<!--
+				一つのフォームに2種類のsubmitを用意する。
+				フォームに2つ以上のsubmitで動きを分けたいときは、気にせず2つ用意する。
+				押されたsubmitのnameがパラメータとしてコントローラーにパラメータとして渡され、コントローラーの呼び出し時にnameのパラメータにより、呼び出す処理を振り分けることができる。
+			-->
+			<input type="submit" name="back" style="float:left" value="入力画面に戻る">
+			<input type="submit" name="commit" style="float:right" value="完了">
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<!-- スタイルシートを読み込む -->
+	<link th:href="@{/css/SpringBootSample.css}" rel="stylesheet" type="text/css">
+	<title>ユーザー情報入力</title>
+</head>
+
+<body>
+	<div id="container">
+		<h1 id="page-hedder">SpringBoot + MVC + MyBatisのサンプルアプリケーション</h1>
+		少しだけ凝ったSpringMVCのサンプルアプリケーションです。<br>
+		頑張って勉強しましょう。
+		<h2>情報入力</h2>
+		下の表に、次のページに引き継ぐ情報を入力します。
+		<form th:action="@{/form}" th:object="${user}" method="post">
+			<table>
+				<tr>
+					<th>入力項目</th>
+					<th colspan="2">入力値</th>
+				</tr>
+				<tr>
+					<td>個人番号</td>
+					<td colspan="2"><input type="number" th:field="*{uNo}"></td>
+				</tr>
+				<tr>
+					<td>氏名</td>
+					<td colspan="2"><input type="text" th:field="*{uName}"></td>
+				</tr>
+				<tr>
+					<td>誕生日</td>
+					<td colspan="2"><input type="text" th:field="*{bDate}"></td>
+				</tr>
+				<tr>
+					<td>年齢</td>
+					<td colspan="2"><input type="number" th:field="*{age}"></td>
+				</tr>
+				<tr>
+					<th rowspan="5">住所</th>
+					<td>都道府県</td>
+					<!-- データがクラスの入れ子になってい場合は変数名の後に「.」でつなげる -->
+					<td><input type="text" th:field="*{address.region}"></td>
+				</tr>
+				<tr>
+					<td>市区町村</td>
+					<td><input type="text" th:field="*{address.city}"></td>
+				</tr>
+				<tr>
+					<td>住所1</td>
+					<!-- コレクションの場合は変数名を指定するだけで勝手にaddしてくれる -->
+					<td><input type="text" th:field="*{address.addressLine}"></td>
+				</tr>
+				<tr>
+					<td>住所2</td>
+					<td><input type="text" th:field="*{address.addressLine}"></td>
+				</tr>
+				<tr>
+					<td>住所3</td>
+					<!--
+						インデックスを指定しても入れることはできる。
+						確認画面から戻ってきてた時、インデックスを指定していると、コレクション内の要素を狙い打って表示できる。
+						インデックス指定抜きでうまいこと表示するやり方は不明。
+						心あたりのあるかは是非コメントください。
+					-->
+					<td><input type="text" th:field="*{address.addressLine[2]}"></td>
+				</tr>
+
+				<button style="float:right">送信</button>
+			</table>
+		</form>
+	</div>
+</body>
+
+</html>

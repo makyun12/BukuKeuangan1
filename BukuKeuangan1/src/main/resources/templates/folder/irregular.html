@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/SpringBootSample.css}" rel="stylesheet" type="text/css">
+	<title>エラー</title>
+</head>
+
+<body>
+	<div id="container">
+		<h1 id="page-hedder">エラー画面</h1>
+		<h2>エラー内容</h2>
+		[[${user.errMsg}]]<br>
+		後付けのメッセージは「[[${message}]]」
+		<form th:action="@{/form}" th:object="${user}" method="get">
+			<input type="hidden" th:value="*{uNo}" />
+			<input type="hidden" th:value="*{uName}" />
+
+			<button style="float:right">入力画面に戻る</button>
+		</form>
+	</div>
+</body>
+</html>

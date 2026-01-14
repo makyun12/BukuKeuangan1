@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--
+	Mapperの定義を追加する。
+	ここでのnamespaceは、使用するMapperクラスのパッケージ名含む完全限定名を指定する。
+-->
+<mapper namespace="com.account.demo.t.mapper.UserMapper">
+	<!--
+		返却する方の定義を追加する。
+		idは何でもいい感があるが、typeは使用するEntityの完全限定名を指定する。
+	-->
+	<resultMap id="userMap" type="com.account.demo.t.entity.UserTable">
+		<result column="UNO"   jdbcType="INTEGER" property="uNo" />
+		<result column="UNAME" jdbcType="VARCHAR" property="uName" />
+		<result column="AGE"   jdbcType="INTEGER" property="age" />
+		<result column="BDATE" jdbcType="DATE" property="bDate" />
+	</resultMap>
+
+	<!--
+		さて本番のSQLの定義を追加する。
+		idはメソッドと同じ名前を指定し、resultMapは↑で指定したidを使用する。
+	-->
+	<select id="selectByUno" resultMap="userMap" parameterType="long">
+SELECT
+    UNO
+  , UNAME
+  , AGE
+  , BDATE
+FROM
+    USER_TABLE
+WHERE
+    UNO = @uNo;
+	</select>
+
+	<insert id="insert" parameterType="com.account.demo.t.entity.UserTable">
+		INSERT INTO USER_TABLE (
+    UNO
+  , UNAME
+  , AGE
+  , BDATE
+)
+SELECT
+    ISNULL(MAX(UNO), 0) + 1
+  , @uName
+  , @age
+  , @bDate
+FROM
+    USER_TABLE;
+	</insert>
+</mapper>

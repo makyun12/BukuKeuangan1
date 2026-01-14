@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/SpringBootSample.css}" rel="stylesheet" type="text/css">
+	<title>完了</title>
+</head>
+<body>
+	<div id="container">
+		<h1 id="page-hedder">完了画面</h1>
+		データの登録が完了しました。
+
+		<!-- 最後の出力 -->
+		<h2>登録データ</h2>
+		登録したデータはこちら<br>
+		個人番号：[[${userTable.uNo}]]<br>
+		氏名：[[${userTable.uName}]]<br>
+		年齢：[[${userTable.age}]]<br>
+		誕生日：[[${userTable.bDate}]]<br>
+	</div>
+</body>
+</html>
