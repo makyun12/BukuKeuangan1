@@ -44,7 +44,22 @@ public class FinishController {
 		ut.setUNo(user.getUNo());
 		ut.setUName(user.getUName());
 		ut.setAge(user.getAge());
-		ut.setBDate(new java.sql.Date(new SimpleDateFormat("yyyy/MM/dd").parse(user.getBDate()).getTime()));
+		// Mengambil string tanggal dari objek user yang dikirim dari form
+		String rawDate = user.getBDate();
+
+		if (rawDate != null && !rawDate.isEmpty()) {
+			try {
+				// Ganti format dari "yyyy/MM/dd" menjadi "yyyy-MM-dd" 
+				// agar sesuai dengan input type="date" dari browser
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date parsedDate = sdf.parse(rawDate);
+				ut.setBDate(new java.sql.Date(parsedDate.getTime()));
+			} catch (ParseException e) {
+				// Jika gagal parsing, set ke null atau tanggal default agar tidak crash
+				ut.setBDate(null);
+				System.out.println("Gagal memproses tanggal: " + rawDate);
+			}
+		}
 
 		// --------------------------------------------------------------------
 		// INSERT

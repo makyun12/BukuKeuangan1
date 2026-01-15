@@ -1,5 +1,7 @@
 package com.account.demo.t.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +24,8 @@ public class User extends ViewCommonData {
 	private long age;
 
 	/** 誕生日 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
 	private String bDate;
 
 	/** 住所 */
