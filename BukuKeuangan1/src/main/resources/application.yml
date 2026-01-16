@@ -5,8 +5,8 @@ spring:
   datasource:
     # Tambahkan protokol jdbc:sqlserver:// dan akhiri dengan konfigurasi keamanan
     url: jdbc:sqlserver://latihansql.database.windows.net:1433;databaseName=sqldemoexercise;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-    username: user01
-    password: Admin1234
+    username: 'user01'
+    password: 'Admin1234'
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 mybatis:
