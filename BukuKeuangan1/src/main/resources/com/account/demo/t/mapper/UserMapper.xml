@@ -34,10 +34,10 @@ WHERE
 
 	<insert id="insert" parameterType="com.account.demo.t.entity.UserTable">
 		INSERT INTO USER_TABLE (
-    uNo
-  , uName
-  ,age
-  ,bDate
+   UNO
+  , UNAME
+  ,AGE
+  ,BDATE
 )
 SELECT
     ISNULL(MAX(UNO), 0) + 1
