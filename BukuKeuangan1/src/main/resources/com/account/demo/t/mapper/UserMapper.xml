@@ -29,21 +29,21 @@ SELECT
 FROM
     USER_TABLE
 WHERE
-    UNO = @uNo;
+    UNO = #{uNo};
 	</select>
 
 	<insert id="insert" parameterType="com.account.demo.t.entity.UserTable">
 		INSERT INTO USER_TABLE (
-    UNO
-  , UNAME
-  , AGE
-  , BDATE
+    #{uNo}
+  , #{uName}
+  ,#{age}
+  , #{bDate}
 )
 SELECT
     ISNULL(MAX(UNO), 0) + 1
-  , @uName
-  , @age
-  , @bDate
+  , #{uName}
+  , #{age}
+  , #{bDate}
 FROM
     USER_TABLE;
 	</insert>
